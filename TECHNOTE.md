@@ -162,7 +162,7 @@ $ openssl req -x509 -nodes -days 365 -keyout privkey.pem -out pubkey.cert
 ```
 
 # PROGRAMMING LANGUAGE
-## x86 Assembly
+## Assembly x86
 ### General Purpose Registers
 Name | 8-bit | 16-bit | 32-bit | 64-bit
 -----|-------|--------|--------|-------
@@ -217,7 +217,24 @@ mov ecx, 2h
 mov eax, 4h
 mul ecx ; Result EAX = 8h; ecx = 2h
 ```
+## CSS (Cascading Style Sheets)
+- Pseudo-class `hover`, `focus` and `active`[^csshfa]
 
+Pseudo-class `active` MUST BE AT THE END of all Pseudo-classes.
+
+It won't work:
+```
+div:active {}
+div:focus {}
+div:hover {}
+```
+
+It works:
+```
+div:hover {}
+div:focus {}
+div:active {}
+```
 # LINUX
 ## Compare between two files.
 > `diff File1.txt File2.txt`
@@ -597,3 +614,5 @@ reg add HKLM\SYSTEM\Setup\LabConfig /v BypassTPMCheck /t REG_DWORD /d 1 /f
 [^systemd]: https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
 
 [^officegvlk]: https://docs.microsoft.com/en-us/deployoffice/vlactivation/gvlks
+
+[^csshfa]: https://bitsofco.de/when-do-the-hover-focus-and-active-pseudo-classes-apply/
