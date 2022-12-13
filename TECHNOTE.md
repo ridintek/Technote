@@ -223,14 +223,14 @@ mul ecx ; Result EAX = 8h; ecx = 2h
 Pseudo-class `active` MUST BE AT THE END of all Pseudo-classes.
 
 It won't work:
-```
+```css
 div:active {}
 div:focus {}
 div:hover {}
 ```
 
 It works:
-```
+```css
 div:hover {}
 div:focus {}
 div:active {}
