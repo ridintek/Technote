@@ -321,8 +321,8 @@ Distro | Command
 Debian/Ubuntu | `sudo apt upgrade`
 RHEL/CentOS | `sudo yum upgrade`
 
-## C / C++
-### Minimal Hello World Program
+# C / C++
+## Minimal Hello World Program
 
 ```c
 #include <stdio.h>
@@ -334,7 +334,43 @@ int main (int argc, char **argv)
   return 0;
 }
 ```
-
+# MySQL
+## Database Replication
+### Master To Client (M2C)
+- Server A (Master)
+```bash
+mysql> CREATE USER replica_a IDENTIFIED BY 'PassA';
+mysql> GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO replica_a;
+mysql> FLUSH PRIVILEGES;
+```
+- Server B (Client)
+```bash
+mysql> CHANGE REPLICATION SOURCE TO SOURCE_HOST='hostname.com', SOURCE_USER='replica_a', SOURCE_PASSWORD='PassA';
+mysql> RESET REPLICA;
+mysql> START REPLICA;
+mysql> SHOW REPLICA STATUS\G
+```
+### Master To Master (M2M)
+- Server A (Master)
+```bash
+mysql> CREATE USER replica_a IDENTIFIED BY 'PassA';
+mysql> GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO replica_a;
+mysql> FLUSH PRIVILEGES;
+mysql> CHANGE REPLICATION SOURCE TO SOURCE_HOST='hostname_b.com', SOURCE_USER='replica_b', SOURCE_PASSWORD='PassB';
+mysql> RESET REPLICA;
+mysql> START REPLICA;
+mysql> SHOW REPLICA STATUS\G
+```
+- Server B (Master)
+```bash
+mysql> CREATE USER replica_b IDENTIFIED BY 'PassB';
+mysql> GRANT REPLICATION CLIENT, REPLICATION SLAVE ON *.* TO replica_b;
+mysql> FLUSH PRIVILEGES;
+mysql> CHANGE REPLICATION SOURCE TO SOURCE_HOST='hostname_a.com', SOURCE_USER='replica_a', SOURCE_PASSWORD='PassA';
+mysql> RESET REPLICA;
+mysql> START REPLICA;
+mysql> SHOW REPLICA STATUS\G
+```
 # PostgreSQL
 ## Windows Install
 > `set PATH=%PATH%;C:\pgsql\bin`
