@@ -336,6 +336,16 @@ int main (int argc, char **argv)
 ```
 # MySQL
 ## Database Replication
+In database replication. Clients or second Masters must import from main Master first before start replication.
+1. Dump all databases from main master to SQL.
+```
+mysqldump -h masterhost -u user -p"Password" dbname > dbname.sql
+```
+2. Import all dumped databases to client.
+```
+mysql -h clienthost -u user -p"Password" dbname < dbname.sql
+```
+
 ### Master To Client (M2C)
 - Server A (Master)
 ```bash
