@@ -6,8 +6,8 @@ Author | Riyan Widiyanto
 Description | Catatan Teknologi Informasi
 Date | 2017-11-11 03:06 +7
 Location | Jakarta / Semarang
-Modified | 2021-12-30 13:06:23
-Version | 2022
+Modified | 2023-01-24 20:47 +7
+Version | 2023
 
 # ELECTRONIC CIRCUIT/DIAGRAM
 ## HEADSET
