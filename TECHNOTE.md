@@ -6,7 +6,7 @@
 | Description | Catatan Teknologi Informasi |
 | Date        | 2017-11-11 03:06 +7         |
 | Location    | Jakarta / Semarang          |
-| Modified    | 2023-01-24 20:47 +7         |
+| Modified    | 2023-05-24 15:56 +7         |
 | Version     | 2023                        |
 
 # ELECTRONIC CIRCUIT/DIAGRAM
@@ -346,6 +346,38 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash acpi_backlight=none"
 | Debian/Ubuntu | `sudo apt upgrade` |
 | RHEL/CentOS   | `sudo yum upgrade` |
 
+# MacOSX
+## Clean Install MacOSX
+1. Shutdown Macbook by long press power button.
+2. Turn on Macbook and press `Command` + `R` to enter Recovery Mode.
+3. Insert USB Flashdrive to Macbook.
+4. Use `Disk Utilities` to format USB.
+5. `Utilities > Terminal`
+6. Access from another PC https://support.apple.com/en-us/HT211683 to get link download.
+7. Enter this command to download image:
+
+```
+# cd /tmp/
+# curl -O http://updates-http.cdn-apple.com/2019/cert/061-41424-20191024-218af9ec-cf50-4516-9011-228c78eda3d2/InstallMacOSX.dmg
+# pkgutil --expand /Volumes/Install\ OS\ X/InstallMacOSX.pkg /tmp/El\ Capitan
+# diskutil eject Install\ OS\ X
+# cd /tmp/El\ Capitan
+# hdiutil attach InstallMacOSX.pkg/InstallESD.dmg  -noverify -nobrowse -mountpoint /Volumes/esd
+# asr restore -source /Volumes/esd/BaseSystem.dmg -target /Volumes/MyVolume -noprompt -noverify -erase
+# diskutil rename OS\ X\ Base\ System Install\ El\ Capitan
+# rm /Volumes/Install\ El\ Capitan/System/Installation/Packages
+# cp -rpv /Volumes/esd/Packages /Volumes/Install\ El\ Capitan/System/Installation
+# cp -rp /Volumes/esd/BaseSystem.chunklist /Volumes/Install\ El\ Capitan/
+# cp -rp /Volumes/esd/BaseSystem.dmg /Volumes/Install\ El\ Capitan/
+# hdiutil detach /Volumes/esd
+# bless --folder /Volumes/Install\ El\ Capitan/System/Library/CoreServices --label Install\ El\ Capitan
+# cp /Volumes/Install\ El\ Capitan/Install\ OS\ X\ El\ Capitan.app/Contents/Resources/InstallAssistant.icns /Volumes/Install\ El\ Capitan/.VolumeIcon.icns
+# cd "$HOME"
+# rm -r /tmp/El\ Capitan
+# diskutil eject Install\ El\ Capitan
+```
+6. Done. Restart and press Alt to boot the USB Flashdrive.
+
 # MySQL
 ## Database Replication
 In database replication. Clients or second Masters must import from main Master first before start replication.
@@ -353,7 +385,7 @@ In database replication. Clients or second Masters must import from main Master 
 ```
 mysqldump -h masterhost -u user -p"Password" dbname > dbname.sql
 ```
-2. Import all dumped databases to client.
+1. Import all dumped databases to client.
 ```
 mysql -h clienthost -u user -p"Password" dbname < dbname.sql
 ```
