@@ -23,6 +23,12 @@ ESP has some variants:
 ### Enter Download Mode
 Press BOOT (IO0) to LOW and then press Reset (EN) to LOW.
 
+If you are using serial, connect Serial pin to ESP pin to automatic enter Download mode.
+| ESP Pin | Serial Pin |
+| ------- | ---------- |
+| EN      | RTS        |
+| IO0     | DTR        |
+
 ### Pin Layout
 ```
   +----------------------------------------------------+
