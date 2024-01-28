@@ -6,10 +6,137 @@
 | Description | Catatan Teknologi Informasi |
 | Date        | 2017-11-11 03:06 +7         |
 | Location    | Jakarta / Semarang          |
-| Modified    | 2023-05-24 15:56 +7         |
-| Version     | 2023                        |
+| Modified    | 2024-01-28 09:47 +7         |
+| Version     | 2024                        |
 
-# ELECTRONIC CIRCUIT/DIAGRAM
+# ELECTRONIC & CIRCUIT/DIAGRAM
+## ESP32
+ESP has some variants:
+- ESP32-WROOM-32E (built-in antenna, newer)
+- ESP32-WROOM-32UE (external antenna, newer)
+- ESP32-WROOM-32D (NRND)
+- ESP32-WROOM-32U (NRND)
+- ESP32-WROOM-32 (NRND)
+
+`NRND = Not Recommended for New Design (Obsolete)`
+
+### Enter Download Mode
+Press BOOT (IO0) to LOW and then press Reset (EN) to LOW.
+
+### Pin Layout
+```
+  +----------------------------------------------------+
+  |                                                    |
+  |             WIFI Antenna / Keepout Zone            |
+  |                                                    |
+  +----------------------------------------------------+
+ 1| GND                                            GND |38
+ 2| 3V3                                           IO23 |37
+ 3| EN                                            IO22 |36
+ 4| SENSOR_VP                                     TXD0 |35
+ 5| SENSOR_VN                                     RXD0 |34
+ 6| IO34                 +-----+                  IO21 |33
+ 7| IO35                 |  39 |                    NC |32
+ 8| IO32                 | GND |                  IO19 |31
+ 9| IO33                 +-----+                  IO18 |30
+10| IO25                                           IO5 |29
+11| IO26                                          IO17 |28
+12| IO27                                          IO16 |27
+13| IO14                                           IO4 |26
+14| IO12                                           IO0 |25
+  |                                                    |
+  | GND|IO13| NC | NC | NC | NC | NC | NC | IO15 | IO2 |
+  +----------------------------------------------------+
+    15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 |
+```
+
+### PINOUT
+| Name      | No. | Type | Function                                                                                       |
+| --------- | --- | ---- | ---------------------------------------------------------------------------------------------- |
+| GND       | 1   | P    | Ground                                                                                         |
+| 3V3       | 2   | P    | Power supply                                                                                   |
+| EN        | 3   | I    | High: On; enables the chip Low: Off; the chip shuts down. Note: Do not leave the pin floating. |
+| SENSOR_VP | 4   | I    | GPIO36, ADC1_CH0, RTC_GPIO0                                                                    |
+| SENSOR_VN | 5   | I    | GPIO39, ADC1_CH3, RTC_GPIO3                                                                    |
+| IO34      | 6   | I    | GPIO34, ADC1_CH6, RTC_GPIO4                                                                    |
+| IO35      | 7   | I    | GPIO35, ADC1_CH7, RTC_GPIO5                                                                    |
+| IO32      | 8   | I/O  | GPIO32, XTAL_32K_P (32.768 kHz crystal oscillator input), ADC1_CH4, TOUCH9, RTC_GPIO9          |
+| IO33      | 9   | I/O  | GPIO33, XTAL_32K_N (32.768 kHz crystal oscillator output), ADC1_CH5, TOUCH8, RTC_GPIO8         |
+| IO25      | 10  | I/O  | GPIO25, DAC_1, ADC2_CH8, RTC_GPIO6, EMAC_RXD0                                                  |
+| IO26      | 11  | I/O  | GPIO26, DAC_2, ADC2_CH9, RTC_GPIO7, EMAC_RXD1                                                  |
+| IO27      | 12  | I/O  | GPIO27, ADC2_CH7, TOUCH7, RTC_GPIO17, EMAC_RX_DV                                               |
+| IO14      | 13  | I/O  | GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2                |
+| IO12      | 14  | I/O  | GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2  FEMAC_TXD3             |
+| GND       | 15  | P    | Ground                                                                                         |
+| IO13      | 16  | I/O  | GPIO13, ADC2_CH4, TOUCH4, RTC_GPIO14, MTCK, HSPID, HS2_DATA3, SD_DATA3, EMAC_RX_ER             |
+| NC        | 17  | -    | SD2, GPIO19, Used by SPI Flash                                                                 |
+| NC        | 18  | -    | SD3, GPIO10, Used by SPI Flash                                                                 |
+| NC        | 19  | -    | CMD, GPIO11, Used by SPI Flash                                                                 |
+| NC        | 20  | -    | CLK, GPIO6, Used by SPI Flash                                                                  |
+| NC        | 21  | -    | SD0, GPIO7, Used by SPI Flash                                                                  |
+| NC        | 22  | -    | SD1, GPIO8, Used by SPI Flash                                                                  |
+| IO15      | 23  | I/O  | GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, MAC_RXD3                 |
+| IO2       | 24  | I/O  | GPIO2, ADC2_CH2, TOUCH2, RTC_GPIO12, HSPIWP, HS2_DATA0, SD_DATA0                               |
+| IO0       | 25  | I/O  | GPIO0, ADC2_CH1, TOUCH1, RTC_GPIO11, CLK_OUT1, EMAC_TX_CLK                                     |
+| IO4       | 26  | I/O  | GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, MAC_TX_ER                    |
+| IO163     | 27  | I/O  | GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT                                                         |
+| IO17      | 28  | I/O  | GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180                                                     |
+| IO5       | 29  | I/O  | GPIO5, VSPICS0, HS1_DATA6, EMAC_RX_CLK                                                         |
+| IO18      | 30  | I/O  | GPIO18, VSPICLK, HS1_DATA7                                                                     |
+| IO19      | 31  | I/O  | GPIO19, VSPIQ, U0CTS, EMAC_TXD0                                                                |
+| NC        | 32  | -    | -                                                                                              |
+| IO21      | 33  | I/O  | GPIO21, VSPIHD, EMAC_TX_EN                                                                     |
+| RXD0      | 34  | I/O  | GPIO3, U0RXD, CLK_OUT2                                                                         |
+| TXD0      | 35  | I/O  | GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2                                                              |
+| IO22      | 36  | I/O  | GPIO22, VSPIWP, U0RTS, EMAC_TXD1                                                               |
+| IO23      | 37  | I/O  | GPIO23, VSPID, HS1_STROBE                                                                      |
+| GND       | 38  | P    | Ground                                                                                         |
+
+`P = Power Supply, I = Input, O = Output`
+
+### GPIO
+| GPIO   | Analog Function | RTC GPIO   | Comments            |
+| ------ | --------------- | ---------- | ------------------- |
+| GPIO0  | ADC2_CH1        | RTC_GPIO11 | Strapping pin       |
+| GPIO1  |                 |            | TXD                 |
+| GPIO2  | ADC2_CH2        | RTC_GPIO12 | Strapping pin       |
+| GPIO3  |                 |            | RXD                 |
+| GPIO4  | ADC2_CH0        | RTC_GPIO10 |
+| GPIO5  |                 |            | Strapping pin       |
+| GPIO6  |                 |            | SPI0/1              |
+| GPIO7  |                 |            | SPI0/1              |
+| GPIO8  |                 |            | SPI0/1              |
+| GPIO9  |                 |            | SPI0/1              |
+| GPIO10 |                 |            | SPI0/1              |
+| GPIO11 |                 |            | SPI0/1              |
+| GPIO12 | ADC2_CH5        | RTC_GPIO15 | Strapping pin; JTAG |
+| GPIO13 | ADC2_CH4        | RTC_GPIO14 | JTAG                |
+| GPIO14 | ADC2_CH6        | RTC_GPIO16 | JTAG                |
+| GPIO15 | ADC2_CH3        | RTC_GPIO13 | Strapping pin; JTAG |
+| GPIO16 |                 |            | SPI0/1              |
+| GPIO17 |                 |            | SPI0/1              |
+| GPIO18 |                 |            |
+| GPIO19 |                 |            |
+| GPIO21 |                 |            |
+| GPIO22 |                 |            |
+| GPIO23 |                 |            |
+| GPIO25 | ADC2_CH8        | RTC_GPIO6  |
+| GPIO26 | ADC2_CH9        | RTC_GPIO7  |
+| GPIO27 | ADC2_CH7        | RTC_GPIO17 |
+| GPIO32 | ADC1_CH4        | RTC_GPIO9  |
+| GPIO33 | ADC1_CH5        | RTC_GPIO8  |
+| GPIO34 | ADC1_CH6        | RTC_GPIO4  | GPI                 |
+| GPIO35 | ADC1_CH7        | RTC_GPIO5  | GPI                 |
+| GPIO36 | ADC1_CH0        | RTC_GPIO0  | GPI                 |
+| GPIO37 | ADC1_CH1        | RTC_GPIO1  | GPI                 |
+| GPIO38 | ADC1_CH2        | RTC_GPIO2  | GPI                 |
+| GPIO39 | ADC1_CH3        | RTC_GPIO3  | GPI                 |
+
+- Strapping pin: GPIO0, GPIO2, GPIO5, GPIO12 (MTDI), and GPIO15 (MTDO) are strapping pins.
+- SPI0/1: GPIO6-11 and GPIO16-17 are usually connected to the SPI flash and PSRAM integrated on the module and therefore should not be used for other purposes.
+- GPI: GPIO34-39 can only be set as input mode and do not have software-enabled pullup or pulldown functions.
+- ADC2 pins cannot be used when Wi-Fi is used. So, if you are having trouble getting the value from an ADC2 GPIO while using Wi-Fi, you may consider using an ADC1 GPIO instead, which should solve your problem.
+- Please DO NOT USE the interrupt of GPIO36 and GPIO39 when using ADC or Wi-Fi and Bluetooth with sleep mode enabled.
 ## HEADSET
 ### Jack 3.5mm Combo (IPhone/Android)
 
