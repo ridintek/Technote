@@ -71,31 +71,31 @@ If you are using serial, connect Serial pin to ESP pin to automatic enter Downlo
 | IO25      | 10  | I/O  | GPIO25, DAC_1, ADC2_CH8, RTC_GPIO6, EMAC_RXD0                                                  |
 | IO26      | 11  | I/O  | GPIO26, DAC_2, ADC2_CH9, RTC_GPIO7, EMAC_RXD1                                                  |
 | IO27      | 12  | I/O  | GPIO27, ADC2_CH7, TOUCH7, RTC_GPIO17, EMAC_RX_DV                                               |
-| IO14      | 13  | I/O  | GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2                |
-| IO12      | 14  | I/O  | GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2  FEMAC_TXD3             |
+| IO14      | 13  | I/O  | GPIO14, ADC2_CH6, TOUCH6, RTC_GPIO16, MTMS, HSPICLK, HS2_CLK, SD_CLK, EMAC_TXD2, HSPI_SCK      |
+| IO12      | 14  | I/O  | GPIO12, ADC2_CH5, TOUCH5, RTC_GPIO15, MTDI, HSPIQ, HS2_DATA2, SD_DATA2, FEMAC_TXD3, HSPI_MISO  |
 | GND       | 15  | P    | Ground                                                                                         |
-| IO13      | 16  | I/O  | GPIO13, ADC2_CH4, TOUCH4, RTC_GPIO14, MTCK, HSPID, HS2_DATA3, SD_DATA3, EMAC_RX_ER             |
+| IO13      | 16  | I/O  | GPIO13, ADC2_CH4, TOUCH4, RTC_GPIO14, MTCK, HSPID, HS2_DATA3, SD_DATA3, EMAC_RX_ER, HSPI_MOSI  |
 | NC        | 17  | -    | SD2, GPIO19, Used by SPI Flash                                                                 |
 | NC        | 18  | -    | SD3, GPIO10, Used by SPI Flash                                                                 |
 | NC        | 19  | -    | CMD, GPIO11, Used by SPI Flash                                                                 |
 | NC        | 20  | -    | CLK, GPIO6, Used by SPI Flash                                                                  |
 | NC        | 21  | -    | SD0, GPIO7, Used by SPI Flash                                                                  |
 | NC        | 22  | -    | SD1, GPIO8, Used by SPI Flash                                                                  |
-| IO15      | 23  | I/O  | GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, MAC_RXD3                 |
+| IO15      | 23  | I/O  | GPIO15, ADC2_CH3, TOUCH3, MTDO, HSPICS0, RTC_GPIO13, HS2_CMD, SD_CMD, MAC_RXD3, HSPI_SS        |
 | IO2       | 24  | I/O  | GPIO2, ADC2_CH2, TOUCH2, RTC_GPIO12, HSPIWP, HS2_DATA0, SD_DATA0                               |
 | IO0       | 25  | I/O  | GPIO0, ADC2_CH1, TOUCH1, RTC_GPIO11, CLK_OUT1, EMAC_TX_CLK                                     |
 | IO4       | 26  | I/O  | GPIO4, ADC2_CH0, TOUCH0, RTC_GPIO10, HSPIHD, HS2_DATA1, SD_DATA1, MAC_TX_ER                    |
 | IO163     | 27  | I/O  | GPIO16, HS1_DATA4, U2RXD, EMAC_CLK_OUT                                                         |
 | IO17      | 28  | I/O  | GPIO17, HS1_DATA5, U2TXD, EMAC_CLK_OUT_180                                                     |
-| IO5       | 29  | I/O  | GPIO5, VSPICS0, HS1_DATA6, EMAC_RX_CLK                                                         |
-| IO18      | 30  | I/O  | GPIO18, VSPICLK, HS1_DATA7                                                                     |
-| IO19      | 31  | I/O  | GPIO19, VSPIQ, U0CTS, EMAC_TXD0                                                                |
+| IO5       | 29  | I/O  | GPIO5, VSPICS0, HS1_DATA6, EMAC_RX_CLK, SDIO, VSPI_SS                                          |
+| IO18      | 30  | I/O  | GPIO18, VSPICLK, HS1_DATA7, VSPI_SCK                                                           |
+| IO19      | 31  | I/O  | GPIO19, VSPIQ, U0CTS, EMAC_TXD0, VSPI_MISO                                                     |
 | NC        | 32  | -    | -                                                                                              |
-| IO21      | 33  | I/O  | GPIO21, VSPIHD, EMAC_TX_EN                                                                     |
+| IO21      | 33  | I/O  | GPIO21, VSPIHD, EMAC_TX_EN, WIRE_SDA                                                           |
 | RXD0      | 34  | I/O  | GPIO3, U0RXD, CLK_OUT2                                                                         |
 | TXD0      | 35  | I/O  | GPIO1, U0TXD, CLK_OUT3, EMAC_RXD2                                                              |
-| IO22      | 36  | I/O  | GPIO22, VSPIWP, U0RTS, EMAC_TXD1                                                               |
-| IO23      | 37  | I/O  | GPIO23, VSPID, HS1_STROBE                                                                      |
+| IO22      | 36  | I/O  | GPIO22, VSPIWP, U0RTS, EMAC_TXD1, WIRE_SCL                                                     |
+| IO23      | 37  | I/O  | GPIO23, VSPID, HS1_STROBE, VSPI_MOSI                                                           |
 | GND       | 38  | P    | Ground                                                                                         |
 
 `P = Power Supply, I = Input, O = Output`
