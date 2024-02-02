@@ -6,10 +6,27 @@
 | Description | Catatan Teknologi Informasi |
 | Date        | 2017-11-11 03:06 +7         |
 | Location    | Jakarta / Semarang          |
-| Modified    | 2024-01-28 09:47 +7         |
+| Modified    | 2024-02-03 02:21 +7         |
 | Version     | 2024                        |
 
 # ELECTRONIC & CIRCUIT/DIAGRAM
+## ATMEGA328P/PB
+Atmega328 has some variants:
+- Atmega328
+- Atmega328P
+- Atmega328PB
+
+| Part        | Signature Byte Address | Status        |
+| ----------- | ---------------------- | ------------- |
+| ATmega328   | 0x1E 0x95 0x14         | NRND          |
+| ATmega328P  | 0x1E 0x95 0x0F         | NRND          |
+| ATmega328PB | 0x1E 0x95 0x16         | In Production |
+
+## ATTINY85
+### Fuses
+### Signature Bytes
+`0x1E 0x93 0x0B`
+
 ## ESP32
 ESP has some variants:
 - ESP32-WROOM-32E (built-in antenna, newer)
@@ -28,7 +45,7 @@ If you are using serial, connect Serial pin to ESP pin to automatic enter Downlo
 | ------- | ---------- |
 | EN      | RTS        |
 | IO0     | DTR        |
-
+l
 ### Pin Layout
 ```
   +----------------------------------------------------+
