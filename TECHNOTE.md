@@ -6,7 +6,7 @@
 | Description | Catatan Teknologi Informasi |
 | Date        | 2017-11-11 03:06 +7         |
 | Location    | Jakarta / Semarang          |
-| Modified    | 2024-02-03 02:21 +7         |
+| Modified    | 2024-02-18 13:06 +7         |
 | Version     | 2024                        |
 
 # ELECTRONIC & CIRCUIT/DIAGRAM
@@ -24,6 +24,11 @@ Atmega328 has some variants:
 
 ## ATTINY85
 ### Fuses
+| Low  | High | Extended | Description                |
+| ---- | ---- | -------- | -------------------------- |
+| 0x62 | 0xDF | 0xFF     | Factory default (Run 1MHz) |
+| 0xE2 | 0xDF | 0xFF     | Enable 8MHz                |
+
 ### Signature Bytes
 `0x1E 0x93 0x0B`
 
@@ -45,8 +50,8 @@ If you are using serial, connect Serial pin to ESP pin to automatic enter Downlo
 | ------- | ---------- |
 | EN      | RTS        |
 | IO0     | DTR        |
-l
-### Pin Layout
+
+### Pin Layout ESP32-WROOM-32/D/U
 ```
   +----------------------------------------------------+
   |                                                    |
@@ -160,6 +165,7 @@ l
 - GPI: GPIO34-39 can only be set as input mode and do not have software-enabled pullup or pulldown functions.
 - ADC2 pins cannot be used when Wi-Fi is used. So, if you are having trouble getting the value from an ADC2 GPIO while using Wi-Fi, you may consider using an ADC1 GPIO instead, which should solve your problem.
 - Please DO NOT USE the interrupt of GPIO36 and GPIO39 when using ADC or Wi-Fi and Bluetooth with sleep mode enabled.
+
 ## HEADSET
 ### Jack 3.5mm Combo (IPhone/Android)
 
