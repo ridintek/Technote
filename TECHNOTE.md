@@ -622,7 +622,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 ### Create Docker App
-> Create compose-docker.yaml file
+> Create compose-docker.yaml file (Use `compose.yaml` instead for new Docker version)
 ```bash
 mkdir ~/docker
 touch ~/docker/compose-docker.yaml
