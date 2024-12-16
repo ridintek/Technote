@@ -373,6 +373,7 @@ mov ecx, 2h
 mov eax, 4h
 mul ecx ; Result EAX = 8h; ecx = 2h
 ```
+
 ## C / C++
 ### Minimal Hello World application.
 
@@ -385,6 +386,7 @@ int main (int argc, char **argv)
   return 0;
 }
 ```
+
 ## CSS (Cascading Style Sheets)
 - Pseudo-class `hover`, `focus` and `active`[^csshfa]
 
@@ -403,6 +405,7 @@ div:hover {}
 div:focus {}
 div:active {}
 ```
+
 ## Javascript
 ### Hoisting
 ```js
@@ -416,6 +419,115 @@ function avgFunc(a, b) {
 }
 ```
 
+## PHP
+### Laravel Relationship
+- Database schema for relationship.
+```
+user:
+  - id
+  - name
+
+phone:
+  - id
+  - user_id
+  - number
+
+role:
+  - id
+  - name
+
+user_role:
+  - id
+  - user_id
+  - role_id
+```
+- **HasOne** relationship.
+```php
+class User extends Model
+{
+  public function phone: HasOne
+  {
+    /**
+     * related: Related to model.
+     * foreignKey: Foreign key on related model (Ex. user_id).
+     * localKey: Local key on current model (Ex. id).
+     */
+    return $this->hasOne(Phone::class);
+  }
+}
+```
+The usage:
+```php
+// Using "with" to eager loading the model or
+// you can omit it.
+$phone = User::with(['phone'])->find(1)->phone;
+```
+- **HasMany** relationship.
+```php
+class User extends Model
+{
+  public function phones: HasMany
+  {
+    /**
+     * related: Related to model.
+     * foreignKey: Foreign key on related model (Ex. user_id).
+     * localKey: Local key on current model (Ex. id).
+     */
+    return $this->hasMany(Phone::class);
+  }
+}
+```
+The usage:
+```php
+// Using "with" to eager loading the model or
+// you can omit it.
+$phones = User::with(['phones'])->find(1)->phones;
+```
+- **HasManyThrough** relationship.
+```php
+class User extends Model
+{
+  public function roles: HasManyThrough
+  {
+    /**
+     * related: Related to model.
+     * through: Through to model.
+     * firstKey: Foreign key on through model (Ex. user_id).
+     * secondKey: Foreign key on related model (Ex. id)
+     * localKey: Local key of current model.
+     * secondLocalKey: Local key of through model.
+     */
+    return $this->hasManyThrough(Role::class, UserRole::class);
+  }
+}
+```
+The usage:
+```php
+// Using "with" to eager loading the model or
+// you can omit it.
+$roles = User::with(['roles'])->find(1)->roles;
+```
+- **BelongsTo** relationship.
+```php
+class Phone extends Model
+{
+  public function user: BelongsTo
+  {
+    /**
+     * related: Related to model.
+     * foreignKey: Foreign key on current model (Ex. user_id).
+     * ownerKey: Owner key on related model (Ex. id).
+     */
+    return $this->belongsTo(User::class);
+  }
+}
+```
+The usage:
+```php
+// Using "with" to eager loading the model or
+// you can omit it.
+$user = Phone::with(['user'])->find(1)->user;
+```
 # LINUX
 ## Compare between two files.
 > `diff File1.txt File2.txt`
@@ -455,6 +567,156 @@ WantedBy=multi-user.target
 > `systemctl start myservice`
 - View status.
 > `systemctl status myservice`
+
+## Setup VPS Server
+### Setup SSH Welcome Message
+> Edit file `/etc/update-motd.d/10-help-text` with:
+```bash
+printf "██████╗ ██╗██████╗ ██╗███╗   ██╗████████╗███████╗██╗  ██╗\n"
+printf "██╔══██╗██║██╔══██╗██║████╗  ██║╚══██╔══╝██╔════╝██║ ██╔╝\n"
+printf "██████╔╝██║██║  ██║██║██╔██╗ ██║   ██║   █████╗  █████╔╝ \n"
+printf "██╔══██╗██║██║  ██║██║██║╚██╗██║   ██║   ██╔══╝  ██╔═██╗ \n"
+printf "██║  ██║██║██████╔╝██║██║ ╚████║   ██║   ███████╗██║  ██╗\n"
+printf "╚═╝  ╚═╝╚═╝╚═════╝ ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝╚═╝  ╚═╝\n"
+printf "\n"
+```
+### Setup Timezone
+```bash
+sudo timedatectl set-timezone Asia/Jakarta
+```
+### Install VIM
+```bash
+sudo apt install vim
+```
+### Setup PHP repository
+```bash
+sudo add-apt-repository ppa:ondrej/php
+```
+### Install PHP 8.3 and extensions
+```bash
+for ext in 'bcmath' 'bz2' 'cli' 'curl' 'gd' \
+  'json' 'mbstring' 'mcrypt' 'intl' 'mysql' \
+  'pgsql' 'redis' 'sqlite3' 'xdebug' 'xml' 'zip';
+do
+  sudo apt install php8.3-$ext
+done
+```
+### Setup Docker Repository
+```bash
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+```
+### Install Docker Package
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+### Create Docker App
+> Create compose-docker.yaml file
+```bash
+mkdir ~/docker
+touch ~/docker/compose-docker.yaml
+```
+> Write `compose-docker.yaml` with:
+```yaml
+services:
+  http:
+    container_name: Nginx
+    image: nginx:1.27-alpine-slim
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      TZ: "Asia/Jakarta"
+    restart: "unless-stopped"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /etc/nginx/conf.d:/etc/nginx/conf.d
+      - /home/<username>/www:/home/<username>/www
+      - /var/log/nginx:/var/log/nginx
+  mysql:
+    container_name: MySQL
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "YourRootPassword"
+      TZ: "Asia/Jakarta"
+    restart: "unless-stopped"
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+  php-fpm:
+    container_name: PHP-FPM
+    build: "./php-fpm"
+    image: php-fpm:latest
+    expose:
+      - "9000"
+    environment:
+      TZ: "Asia/Jakarta"
+    restart: "unless-stopped"
+    volumes:
+      - /home/<username>/www:/home/<username>/www
+      - /home/<username>/docker/php-fpm/php.ini:/usr/local/etc/php/php.ini
+```
+> Run Docker compose
+```bash
+sudo docker compose up -d
+```
+> Add host.docker.internal to `/etc/hosts` with:
+```
+172.17.0.1 host.docker.internal
+```
+> You can check the IP `172.17.0.1` by using `ifconfig`, check if it has `docker0` ethernet.
+```
+docker0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 172.17.0.1  netmask 255.255.0.0  broadcast 172.17.255.255
+        ether 02:42:61:8b:ed:b7  txqueuelen 0  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+```
+### Install and Config MySQL Client
+> Install MySQL 8.0 client
+```bash
+sudo apt install mysql-client-core-8.0
+```
+> We wouldn't use socket protocol to connect MySQL server, so create and edit file `/etc/my.cnf` with:
+```ini
+[client]
+protocol=tcp
+```
+> to change from UNIX socket to TCP protocol.
+### Install Certbot and DNS Plugin
+```bash
+sudo apt install certbot python3-certbot-dns-cloudflare
+```
+Write Cloudflare token file
+```bash
+mkdir ~/.secrets/certbot
+touch ~/.secrets/certbot/cloudflare.ini
+```
+Write `cloudflare.ini` with:
+```ini
+dns_cloudflare_api_token = 8RxHWnOXlQOw07ItH1NkUG0tFucK3dH3ReW1G0Dif2
+```
+### Generate certificate
+```bash
+sudo certbot certonly --dns-cloudflare \
+  --dns-cloudflare-credentials ~/.secrets/certbot/cloudflare.ini \
+  -d mydomain.com -d *.mydomain.com
+```
 
 ## Fix Brightness Persistent (Linux Mint 19.3 Tricia)
 > `sudo xed /etc/default/grub`
